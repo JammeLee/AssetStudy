@@ -16,12 +16,8 @@ public static class AssetBundleMenu
         var oboDirs = Directory.GetDirectories(OBOPATH);
         foreach (var dir in oboDirs)
         {
-//            var dirs = Directory.GetDirectories(dir);
-//            foreach (var d in dirs)
-//            {
-                var bPath = Path.GetFileNameWithoutExtension(dir);
-                MarkSingleBundleName(dir, bPath, "*");
-//            }
+            var bPath = Path.GetFileNameWithoutExtension(dir);
+            MarkSingleBundleName(dir, bPath, "*");
         }
 
         var categoryDirs = Directory.GetDirectories(CATEGORYPATH);
@@ -66,5 +62,35 @@ public static class AssetBundleMenu
                 ai.assetBundleName = bundleName;
             }
         }
+    }
+
+    public static void NeedDirectory(string path)
+    {
+        if (string.IsNullOrEmpty(path) || path.Equals("."))
+        {
+            return;
+        }
+
+        var dir = Path.GetDirectoryName(path);
+        if (!Directory.Exists(dir))
+        {
+            NeedDirectory(dir);
+        }
+
+        Directory.CreateDirectory(path);
+    }
+
+    [MenuItem("Assets/Asset/BuildBundleName")]
+    public static void BuildAssetBundle()
+    {
+        AssetDatabase.RemoveUnusedAssetBundleNames();
+        AssetBundleMenu.AutoSetBundleName();
+
+        AssetDatabase.Refresh();
+        
+        NeedDirectory(string.Format("{0}/{1}",Application.dataPath, "Issets/AssetBundle"));
+
+        BuildPipeline.BuildAssetBundles(string.Format("{0}/{1}",Application.dataPath, "Issets/AssetBundle"),
+            BuildAssetBundleOptions.ChunkBasedCompression, BuildTarget.StandaloneOSX);
     }
 }
