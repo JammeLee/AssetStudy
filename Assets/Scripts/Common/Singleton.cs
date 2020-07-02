@@ -1,9 +1,8 @@
-﻿using UnityEngine;
-
+﻿
 namespace MFrame.Common
 {
     // Mono单例
-    public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
+    public class MonoSingleton<T> : MonoBehavior where T : MonoBehavior
     {
         public static T Instance { get; private set; }
 
