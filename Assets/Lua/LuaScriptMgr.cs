@@ -22,7 +22,9 @@ public class LuaScriptMgr : MonoSingleton<LuaScriptMgr>
                 m_Env = new LuaEnv();
                 InitLuaEnv();
                 
-                // L.Get
+                L.GetGlobal("_G");
+                SetGlobalVars();
+                L.Pop(1);
             }
 
             return m_Env;
@@ -40,6 +42,13 @@ public class LuaScriptMgr : MonoSingleton<LuaScriptMgr>
     protected virtual void InitLuaEnv()
     {
         
+    }
+
+    protected virtual void SetGlobalVars()
+    {
+//        L.SetDict("print", StaticLuaCallbacks.Print);
+//        L.SetDict("loadfile", StaticLuaCallbacks.load);
+//        L.SetDict("");
     }
 
     protected override void Awaking()
