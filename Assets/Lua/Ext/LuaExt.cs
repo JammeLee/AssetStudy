@@ -439,6 +439,10 @@ public static class LuaExt
 #endif
     }
     
+    public static LuaThreadStatus L_LoadBuffer(this ILuaState self, byte[] buff, string name)
+    {
+        return (LuaThreadStatus)LuaDLL.luaL_loadbuffer(self, buff, buff.Length, name);
+    }
 
 
 

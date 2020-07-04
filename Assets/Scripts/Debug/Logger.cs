@@ -10,6 +10,10 @@ namespace MFrame.Debug
     }
     public static class Logger
     {
+        public const string UNITY_EDITOR = "UNITY_EDITOR";
+        public const string UNITY_STANDALONE = "UNITY_STANDALONE";
+        public const string DEVELOPMENT_BUILD = "DEVELOPMENT_BUILD";
+        
         private static ILogger m_ULogger = Debug.unityLogger;
         private static LogLevel m_Level = LogLevel.D;
 

@@ -53,6 +53,11 @@ public class LuaScriptMgr : MonoSingleton<LuaScriptMgr>
 
     protected override void Awaking()
     {
-        base.Awaking();
+        L.NewTable();
+        L.SetGlobal("ENV");
+
+        L.Pop(1);
+
+        L.DoFile(SCRIPT_START_FILE);
     }
 }
